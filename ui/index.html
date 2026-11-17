@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="remote" id="remote" hidden>
+    <header class="head">
+      <div class="brand">
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="m17 2-5 4-5-4"/></svg>
+        </span>
+        <div>
+          <p class="brand-name" id="brand"></p>
+          <h1 id="title"></h1>
+        </div>
+      </div>
+      <button class="icon-btn" id="close" type="button" data-title="ui_close">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+
+    <p class="screen-label" id="screen-label"></p>
+
+    <!-- Now playing -->
+    <section class="now" id="now">
+      <div class="now-top">
+        <span class="kind" id="kind"></span>
+        <span class="by" id="by"></span>
+      </div>
+      <h2 class="now-title" id="now-title"></h2>
+
+      <div class="timeline" id="timeline">
+        <span class="time" id="t-cur">0:00</span>
+        <div class="track" id="track"><i id="track-fill"></i></div>
+        <span class="time" id="t-dur"></span>
+      </div>
+
+      <div class="controls" id="controls">
+        <button class="ctrl" id="btn-ch-down" type="button" data-title="ui_ch_down"></button>
+        <button class="ctrl" id="btn-ch-up" type="button" data-title="ui_ch_up"></button>
+        <button class="ctrl primary" id="btn-toggle" type="button"></button>
+        <button class="ctrl" id="btn-next" type="button" data-title="ui_next"></button>
+        <button class="ctrl toggle" id="btn-loop" type="button" data-title="ui_loop"></button>
+        <button class="ctrl" id="btn-resync" type="button" data-title="ui_resync"></button>
+        <button class="ctrl danger" id="btn-stop" type="button" data-title="ui_stop"></button>
+      </div>
+
+      <p class="channel-note" id="channel-note" hidden data-t="ui_channel_note"></p>
+
+      <div class="volume" id="volume-row">
+        <span class="label" data-t="ui_volume"></span>
+        <input type="range" id="volume" min="0" max="100" step="1" />
+        <output id="volume-out"></output>
+      </div>
+    </section>
+
+    <p class="locked" id="locked" hidden data-t="ui_locked"></p>
+
+    <!-- Play / queue -->
+    <section class="add" id="add">
+      <input class="field" id="source" type="text" spellcheck="false" autocomplete="off" maxlength="2048" />
+      <p class="hint" id="hint"></p>
+      <div class="row" id="play-row">
+        <button class="btn primary" id="btn-play" type="button" data-t="ui_play"></button>
+        <button class="btn ghost" id="btn-queue" type="button" data-t="ui_add_queue"></button>
+      </div>
+      <div class="row browse" id="browse">
+        <button class="btn library-btn" id="btn-guide" type="button" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="m17 2-5 5-5-5"/></svg>
+          <span data-t="ui_guide_open"></span>
+          <span class="btn-count" id="guide-count"></span>
+        </button>
+        <button class="btn library-btn" id="btn-library" type="button" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 16h4M17 8h4M17 16h4"/></svg>
+          <span data-t="ui_library"></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="block" id="queue-box">
+      <p class="kicker"><span data-t="ui_queue"></span> <span class="count" id="queue-count"></span></p>
+      <ol class="queue" id="queue"></ol>
+      <p class="empty" id="queue-empty" data-t="ui_queue_empty"></p>
+    </section>
+
+    <footer class="foot">
+      <label class="switch">
+        <input type="checkbox" id="mute" />
+        <span class="knob" aria-hidden="true"></span>
+        <span data-t="ui_mute_me"></span>
+      </label>
+      <p class="toast" id="toast" role="status"></p>
+    </footer>
+  </main>
+
+  <!-- Channel guide, next to the remote -->
+  <aside class="library guide" id="guide" hidden>
+    <header class="head">
+      <div>
+        <p class="brand-name" data-t="ui_guide_note"></p>
+        <h1 data-t="ui_channels"></h1>
+      </div>
+      <button class="icon-btn" id="guide-close" type="button" data-title="ui_close">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+
+    <div class="chips" id="guide-categories"></div>
+    <ol class="guide-list" id="guide-list"></ol>
+  </aside>
+
+  <!-- Free movie library (Internet Archive), next to the remote -->
+  <aside class="library" id="library" hidden>
+    <header class="head">
+      <div>
+        <p class="brand-name" data-t="ui_library_note"></p>
+        <h1 data-t="ui_library"></h1>
+      </div>
+      <button class="icon-btn" id="lib-close" type="button" data-title="ui_close">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+
+    <form class="lib-search" id="lib-form">
+      <input class="field" id="lib-query" type="text" spellcheck="false" autocomplete="off" maxlength="60" />
+      <button class="btn primary" type="submit" data-title="ui_search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      </button>
+    </form>
+    <div class="chips" id="lib-genres"></div>
+
+    <p class="kicker" id="lib-heading"></p>
+    <div class="lib-grid" id="lib-grid"></div>
+    <p class="empty" id="lib-status" hidden></p>
+    <button class="btn ghost" id="lib-more" type="button" data-t="ui_load_more" hidden></button>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>

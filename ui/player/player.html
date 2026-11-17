@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>TV</title>
+    <link rel="stylesheet" href="player.css">
+</head>
+<body>
+    <main id="stage">
+        <section id="idle" class="panel">
+            <p class="brand" id="idle-brand"></p>
+            <p class="sub" id="idle-text">Waiting for content</p>
+        </section>
+
+        <section id="loading" class="panel hidden">
+            <div class="spinner"></div>
+            <p class="brand small" id="loading-brand"></p>
+            <p class="sub" id="loading-detail">Loading</p>
+        </section>
+
+        <div id="youtube-slot" class="media hidden"></div>
+        <div id="vimeo-slot" class="media hidden"></div>
+        <video id="html-video" class="media hidden" playsinline preload="auto"></video>
+
+        <section id="error" class="panel error hidden">
+            <div class="error-icon">!</div>
+            <p class="eyebrow" id="error-title">Can't play this</p>
+            <p id="error-detail"></p>
+            <code id="error-code"></code>
+        </section>
+
+    </main>
+
+    <script src="player.js"></script>
+</body>
+</html>
